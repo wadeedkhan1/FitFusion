@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(content=~{::div})}">
+
+<body>
+    <div class="space-y-8">
+        <h1 class="text-3xl font-bold text-slate-900">Admin Dashboard</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Muscle Groups Card -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-4">Muscle Groups</h2>
+                <p class="text-slate-600 mb-6">Manage the categories for exercises.</p>
+                <a href="/admin/muscle-groups/create"
+                    class="inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    + Add Muscle Group
+                </a>
+            </div>
+
+            <!-- Exercises Card -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-4">Exercises</h2>
+                <p class="text-slate-600 mb-6">Add, edit, or remove exercises from the library.</p>
+                <div class="space-x-4">
+                    <a href="/admin/exercises"
+                        class="inline-block bg-slate-100 text-slate-700 px-4 py-2 rounded-lg hover:bg-slate-200 transition">
+                        View All
+                    </a>
+                    <a href="/admin/exercises/create"
+                        class="inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                        + Add Exercise
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

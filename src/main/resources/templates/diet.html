@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(content=~{::div})}">
+
+<body>
+    <div class="max-w-5xl mx-auto space-y-8">
+        <h1 class="text-3xl font-bold text-slate-900">Nutrition Tracker</h1>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 text-center">
+                <p class="text-xs text-slate-500 uppercase font-bold">Calories</p>
+                <p class="text-2xl font-bold text-primary" th:text="${totalCalories}">0</p>
+                <p class="text-xs text-slate-400">kcal</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 text-center">
+                <p class="text-xs text-slate-500 uppercase font-bold">Protein</p>
+                <p class="text-2xl font-bold text-green-600" th:text="${totalProtein}">0</p>
+                <p class="text-xs text-slate-400">g</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 text-center">
+                <p class="text-xs text-slate-500 uppercase font-bold">Carbs</p>
+                <p class="text-2xl font-bold text-yellow-600" th:text="${totalCarbs}">0</p>
+                <p class="text-xs text-slate-400">g</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 text-center">
+                <p class="text-xs text-slate-500 uppercase font-bold">Fats</p>
+                <p class="text-2xl font-bold text-red-600" th:text="${totalFats}">0</p>
+                <p class="text-xs text-slate-400">g</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Log Form -->
+            <div class="lg:col-span-1">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 sticky top-24">
+                    <h2 class="text-xl font-bold text-slate-900 mb-6">Add Food</h2>
+                    <form th:action="@{/diet/log}" method="post" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Meal Type</label>
+                            <select name="mealType"
+                                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
+                                <option value="Snack">Snack</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Food Item</label>
+                            <select name="foodItemId" required
+                                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                                <option value="">Select Food</option>
+                                <option th:each="food : ${foods}" th:value="${food.id}"
+                                    th:text="${food.name} + ' (' + ${food.calories} + ' kcal/100g)'">Food</option>
+                            </select>
+                            <p class="text-xs text-slate-500 mt-1">Can't find it? <a href="#"
+                                    class="text-primary hover:underline">Request new item</a></p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Quantity (grams)</label>
+                            <input type="number" name="quantity" required value="100"
+                                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                            Add to Log
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Daily Log -->
+            <div class="lg:col-span-2">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="text-xl font-bold text-slate-900 mb-6">Today's Meals</h2>
+
+                    <div class="space-y-6">
+                        <div th:each="mealType : ${{'Breakfast', 'Lunch', 'Dinner', 'Snack'}}">
+                            <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3"
+                                th:text="${mealType}">Breakfast</h3>
+                            <div class="space-y-3">
+                                <div th:each="log : ${todayLogs}" th:if="${log.mealType == mealType}"
+                                    class="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-100">
+                                    <div>
+                                        <p class="font-semibold text-slate-900" th:text="${log.foodItem.name}">Food Name
+                                        </p>
+                                        <p class="text-xs text-slate-500">
+                                            <span th:text="${log.quantity}">100</span>g •
+                                            <span th:text="${(log.foodItem.calories * log.quantity) / 100}">200</span>
+                                            kcal
+                                        </p>
+                                    </div>
+                                    <form th:action="@{/diet/delete}" method="post">
+                                        <input type="hidden" name="id" th:value="${log.id}">
+                                        <button type="submit" class="text-red-400 hover:text-red-600 text-sm">×</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div th:if="${todayLogs.empty}" class="text-center py-12 text-slate-400">
+                        No meals logged today. Start tracking!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

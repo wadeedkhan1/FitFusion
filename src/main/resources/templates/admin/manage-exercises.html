@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(content=~{::div})}">
+
+<body>
+    <div class="space-y-8">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-slate-900">Manage Exercises</h1>
+            <a href="/admin/exercises/create"
+                class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                + Add New
+            </a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="bg-slate-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Name
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                            Muscle Group</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Type
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                            Level</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">
+                            Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-slate-200">
+                    <tr th:each="exercise : ${exercises}">
+                        <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900" th:text="${exercise.name}">
+                            Name</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-slate-500" th:text="${exercise.muscleGroup.name}">
+                            Group</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-slate-500" th:text="${exercise.exerciseType}">Type
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-slate-500" th:text="${exercise.experienceLevel}">
+                            Level</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a th:href="@{/admin/exercises/edit/{id}(id=${exercise.id})}"
+                                class="text-primary hover:text-blue-900">Edit</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

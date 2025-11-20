@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(content=~{::div})}">
+
+<body>
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold text-slate-900 mb-8">Add Muscle Group</h1>
+
+        <form th:action="@{/admin/muscle-groups/create}" th:object="${muscleGroup}" method="post"
+            class="space-y-6 bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Name</label>
+                <input type="text" th:field="*{name}" required
+                    class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Image URL</label>
+                <input type="url" th:field="*{imageUrl}"
+                    class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                <textarea th:field="*{description}" rows="4"
+                    class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none"></textarea>
+            </div>
+
+            <div class="pt-4">
+                <button type="submit"
+                    class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                    Save Muscle Group
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

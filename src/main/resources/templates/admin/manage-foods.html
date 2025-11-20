@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(content=~{::div})}">
+
+<body>
+    <div class="space-y-8">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-slate-900">Manage Foods</h1>
+            <a href="/admin/foods/create"
+                class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                + Add New Food
+            </a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="bg-slate-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Name
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                            Calories</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                            Protein</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                            Local?</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-slate-200">
+                    <tr th:each="food : ${foods}">
+                        <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900" th:text="${food.name}">Name
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-slate-500" th:text="${food.calories}">0</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-slate-500" th:text="${food.protein}">0</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-slate-500">
+                            <span th:if="${food.isLocal}"
+                                class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Yes</span>
+                            <span th:unless="${food.isLocal}"
+                                class="px-2 py-1 bg-slate-100 text-slate-600 rounded-full text-xs">No</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

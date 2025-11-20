@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(content=~{::div})}">
+
+<body>
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-slate-900">Setup Your Profile</h2>
+            <p class="text-slate-500 mt-1">Tell us about yourself so we can personalize your experience.</p>
+        </div>
+
+        <form th:action="@{/profile/setup}" th:object="${profile}" method="post" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Age</label>
+                    <input type="number" th:field="*{age}" required
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Gender</label>
+                    <select th:field="*{gender}"
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Height (cm)</label>
+                    <input type="number" step="0.1" th:field="*{height}" required
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Weight (kg)</label>
+                    <input type="number" step="0.1" th:field="*{weight}" required
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Fitness Goal</label>
+                <select th:field="*{goal}"
+                    class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                    <option value="LOSE_WEIGHT">Lose Weight</option>
+                    <option value="GAIN_MUSCLE">Gain Muscle</option>
+                    <option value="MAINTAIN">Maintain Weight</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Activity Level</label>
+                <select th:field="*{activityLevel}"
+                    class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
+                    <option value="SEDENTARY">Sedentary (Little or no exercise)</option>
+                    <option value="LIGHTLY_ACTIVE">Lightly Active (Exercise 1-3 days/week)</option>
+                    <option value="MODERATELY_ACTIVE">Moderately Active (Exercise 3-5 days/week)</option>
+                    <option value="VERY_ACTIVE">Very Active (Exercise 6-7 days/week)</option>
+                </select>
+            </div>
+
+            <div class="pt-4">
+                <button type="submit"
+                    class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                    Save Profile
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

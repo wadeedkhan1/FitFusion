@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(content=~{::div})}">
+
+<body>
+    <div class="space-y-8">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-4xl font-bold text-slate-900 mb-4">Exercises by Muscle Group</h1>
+            <p class="text-lg text-slate-600">
+                Choose the muscle group you want to target. Find the best exercises for your goals and equipment.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <a th:each="group : ${muscleGroups}" th:href="@{/exercises/muscle/{id}(id=${group.id})}"
+                class="group relative block overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 bg-white">
+
+                <div class="aspect-w-16 aspect-h-10 bg-slate-200">
+                    <img th:if="${group.imageUrl}" th:src="${group.imageUrl}" alt="Muscle Group"
+                        class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
+                    <div th:unless="${group.imageUrl}"
+                        class="flex items-center justify-center h-48 bg-slate-100 text-slate-400">
+                        <span class="text-4xl">💪</span>
+                    </div>
+                </div>
+
+                <div class="p-4 text-center">
+                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors"
+                        th:text="${group.name}">Muscle Name</h3>
+                    <p class="text-sm text-slate-500 mt-1" th:text="${#strings.abbreviate(group.description, 50)}">
+                        Description...</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

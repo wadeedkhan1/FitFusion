@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitFusion - Intelligent Fitness</title>
+    <link href="/css/output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-white font-sans text-slate-900 antialiased">
+
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div class="text-2xl font-bold text-primary">FitFusion</div>
+        <div class="space-x-4">
+            <a href="/login" class="text-slate-600 hover:text-slate-900 font-medium">Login</a>
+            <a href="/register"
+                class="bg-primary text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition font-medium">Get
+                Started</a>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-5xl md:text-6xl font-bold text-slate-900 tracking-tight mb-8">
+                Your Personal AI <br>
+                <span class="text-primary">Fitness Coach</span>
+            </h1>
+            <p class="text-xl text-slate-600 mb-10 leading-relaxed">
+                FitFusion combines smart workout tracking, nutrition planning, and AI-powered recommendations to help
+                you achieve your dream physique.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="/register"
+                    class="bg-primary text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-blue-700 transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    Start Your Journey
+                </a>
+                <a href="/login"
+                    class="bg-white text-slate-700 border border-slate-200 px-8 py-4 rounded-full text-lg font-bold hover:bg-slate-50 transition">
+                    Sign In
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+            <div>
+                <div class="bg-blue-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl">💪
+                </div>
+                <h3 class="text-xl font-bold mb-3">Smart Workouts</h3>
+                <p class="text-slate-600">Access a library of exercises and build custom plans tailored to your goals.
+                </p>
+            </div>
+            <div>
+                <div class="bg-green-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl">🥗
+                </div>
+                <h3 class="text-xl font-bold mb-3">Nutrition Tracking</h3>
+                <p class="text-slate-600">Log your meals and track calories with support for local Pakistani foods.</p>
+            </div>
+            <div>
+                <div class="bg-purple-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl">✨
+                </div>
+                <h3 class="text-xl font-bold mb-3">AI Recommendations</h3>
+                <p class="text-slate-600">Get personalized tips and routine adjustments powered by Gemini AI.</p>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

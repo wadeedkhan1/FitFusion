@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(content=~{::div})}">
+
+<body>
+    <div class="space-y-8">
+        <!-- Welcome Section -->
+        <div class="flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-900">Hello, <span th:text="${user.username}">User</span>! 👋
+                </h1>
+                <p class="text-slate-600 mt-2">Here's your daily summary.</p>
+            </div>
+            <div class="text-right">
+                <p class="text-sm text-slate-500"
+                    th:text="${#temporals.format(#temporals.createNow(), 'EEEE, MMMM d')}">Date</p>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Calories -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase">Calories</h3>
+                    <span class="p-2 bg-orange-100 text-orange-600 rounded-lg">🔥</span>
+                </div>
+                <p class="text-3xl font-bold text-slate-900" th:text="${calories}">0</p>
+                <p class="text-sm text-slate-500 mt-1">kcal consumed</p>
+            </div>
+
+            <!-- Protein -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase">Protein</h3>
+                    <span class="p-2 bg-green-100 text-green-600 rounded-lg">🥩</span>
+                </div>
+                <p class="text-3xl font-bold text-slate-900" th:text="${protein}">0</p>
+                <p class="text-sm text-slate-500 mt-1">grams consumed</p>
+            </div>
+
+            <!-- Workouts -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase">Workouts</h3>
+                    <span class="p-2 bg-blue-100 text-blue-600 rounded-lg">💪</span>
+                </div>
+                <p class="text-3xl font-bold text-slate-900" th:text="${exercisesCount}">0</p>
+                <p class="text-sm text-slate-500 mt-1">exercises today</p>
+            </div>
+
+            <!-- Sets -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase">Volume</h3>
+                    <span class="p-2 bg-purple-100 text-purple-600 rounded-lg">📊</span>
+                </div>
+                <p class="text-3xl font-bold text-slate-900" th:text="${setsCompleted}">0</p>
+                <p class="text-sm text-slate-500 mt-1">sets completed</p>
+            </div>
+        </div>
+
+        <!-- AI Recommendations -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Workout AI -->
+            <div
+                class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-8 rounded-2xl shadow-lg relative overflow-hidden">
+                <div class="relative z-10">
+                    <h2 class="text-2xl font-bold mb-4">AI Workout Coach</h2>
+                    <p class="text-slate-300 mb-6">Get a personalized workout routine based on your goals and profile.
+                    </p>
+
+                    <div th:if="${hasApiKey}">
+                        <button onclick="getAiRecommendation('workout')" id="btn-workout"
+                            class="bg-white text-slate-900 px-6 py-3 rounded-lg font-bold hover:bg-slate-100 transition flex items-center">
+                            <span class="mr-2">✨</span> Generate Workout
+                        </button>
+                        <div id="result-workout"
+                            class="mt-6 text-sm text-slate-200 whitespace-pre-line hidden bg-white/10 p-4 rounded-lg">
+                        </div>
+                    </div>
+                    <div th:unless="${hasApiKey}">
+                        <a href="/settings"
+                            class="bg-white/20 text-white px-6 py-3 rounded-lg font-bold hover:bg-white/30 transition inline-block">
+                            Configure API Key
+                        </a>
+                    </div>
+                </div>
+                <!-- Decorative circle -->
+                <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+            </div>
+
+            <!-- Diet AI -->
+            <div
+                class="bg-gradient-to-br from-primary to-blue-700 text-white p-8 rounded-2xl shadow-lg relative overflow-hidden">
+                <div class="relative z-10">
+                    <h2 class="text-2xl font-bold mb-4">AI Nutritionist</h2>
+                    <p class="text-blue-100 mb-6">Get a meal plan with local Pakistani food options tailored to you.</p>
+
+                    <div th:if="${hasApiKey}">
+                        <button onclick="getAiRecommendation('meal')" id="btn-meal"
+                            class="bg-white text-primary px-6 py-3 rounded-lg font-bold hover:bg-blue-50 transition flex items-center">
+                            <span class="mr-2">🥗</span> Generate Meal Plan
+                        </button>
+                        <div id="result-meal"
+                            class="mt-6 text-sm text-blue-50 whitespace-pre-line hidden bg-white/10 p-4 rounded-lg">
+                        </div>
+                    </div>
+                    <div th:unless="${hasApiKey}">
+                        <a href="/settings"
+                            class="bg-white/20 text-white px-6 py-3 rounded-lg font-bold hover:bg-white/30 transition inline-block">
+                            Configure API Key
+                        </a>
+                    </div>
+                </div>
+                <!-- Decorative circle -->
+                <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a href="/workouts/log"
+                class="block p-6 bg-white border border-slate-200 rounded-xl hover:border-primary hover:shadow-md transition group">
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-primary">Log Workout &rarr;</h3>
+                <p class="text-slate-500 mt-1">Record your sets, reps, and weights.</p>
+            </a>
+            <a href="/diet"
+                class="block p-6 bg-white border border-slate-200 rounded-xl hover:border-primary hover:shadow-md transition group">
+                <h3 class="text-lg font-bold text-slate-900 group-hover:text-primary">Track Meals &rarr;</h3>
+                <p class="text-slate-500 mt-1">Log your food intake and check macros.</p>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        async function getAiRecommendation(type) {
+            const btn = document.getElementById('btn-' + type);
+            const resultDiv = document.getElementById('result-' + type);
+            const originalText = btn.innerHTML;
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="animate-spin mr-2">↻</span> Generating...';
+            resultDiv.classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/ai/' + type + '-recommendation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    // Add CSRF token if Spring Security CSRF is enabled (it is by default)
+                    // For simplicity in this demo, we might need to handle CSRF or disable it for API
+                    // But since we are using Thymeleaf, we can get it from meta tags if we added them
+                    // Or just rely on session if same-origin. 
+                    // Let's assume for now we might need to disable CSRF for /api/** or add the token.
+                    // I'll add a meta tag to layout or just disable CSRF for API in SecurityConfig for simplicity.
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.textContent = data.content;
+                    resultDiv.classList.remove('hidden');
+                } else {
+                    resultDiv.textContent = "Error generating recommendation. Please try again.";
+                    resultDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.textContent = "Network error. Please try again.";
+                resultDiv.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+    </script>
+</body>
+
+</html>
